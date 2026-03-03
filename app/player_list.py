@@ -22,7 +22,8 @@ class PlayerList:
         return current
         
     def insert_first(self, val):
-        new_node = Node(val)
+        # new_node = PlayerNode(val)
+        new_node = (val)
 
         if self.is_empty():
             self.first = new_node
@@ -34,7 +35,8 @@ class PlayerList:
         self.first = new_node
 
     def insert_last(self, val):
-        new_node = Node(val)
+        # new_node = PlayerNode(val)
+        new_node = (val)
 
         if self.is_empty():
             self.first = new_node
@@ -66,11 +68,15 @@ class PlayerList:
         return current
 
     def display(self):
-        print("List first --> last: ")
+        result = ["List first --> last:"]
+
         current = self.first
         while current:
-            print("+++++++++++++++++++++")
-            print("prev: ", current.previous)
-            print("node => ", current)
-            print("next: ", current.next)
+            result.append(
+                        f"#<#_prev: {current.previous}, "
+                        f"#-#_node: {current}, "
+                        f"#>#_next: {current.next}"
+                    )
             current = current.next
+
+        return "\n".join(result)
