@@ -1,6 +1,7 @@
 class PlayerList:
     def __init__(self):
         self.first = None
+        # Tail instance variable: points to the last node in the list.
         self.last = None
 
     def is_empty(self):
