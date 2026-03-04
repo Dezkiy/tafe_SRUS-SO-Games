@@ -34,7 +34,6 @@ class PlayerList:
         self.first = new_node
 
     def insert_last(self, val):
-        # new_node = PlayerNode(val)
         new_node = (val)
 
         if self.is_empty():
@@ -42,9 +41,9 @@ class PlayerList:
             self.last = new_node
             return
         
-        new_node.previous = self.second
-        self.second.next = new_node
-        self.second = new_node
+        new_node.previous = self.last
+        self.last.next = new_node
+        self.last = new_node
 
     def delete(self, key):
         current = self.first
