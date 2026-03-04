@@ -4,8 +4,7 @@ class PlayerList:
         self.last = None
 
     def is_empty(self):
-        return self.first is None
-        # return self.first is None and self.last is None
+        return self.first is None and self.last is None
     
     def find_from_start(self, key):
         current = self.first

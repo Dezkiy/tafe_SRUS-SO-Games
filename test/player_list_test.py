@@ -4,9 +4,11 @@ from app.player_node import PlayerNode
 from app.player import Player
 
 class TestPlayerList(unittest.TestCase):
-    player_list = PlayerList()
+    
+    def setUp(self):
+        self.player_list = PlayerList()
 
-    def test_initialization(self):
+    def test_is_player_list_empty(self):
         self.assertEqual(self.player_list.is_empty(), True)
 
     def test_insert_first(self):
