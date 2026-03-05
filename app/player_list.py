@@ -107,23 +107,40 @@ class PlayerList:
         return removed
 
     def delete(self, key):
+        """
+        Delete and return the first node that matches ``key``.
+
+        The key is matched against ``PlayerNode.key`` (player uid).
+
+        Args:
+            key (str): Player uid to remove.
+
+        Returns:
+            PlayerNode | None: The removed node, or None when no match exists.
+        """
         current = self.first
-        previous = self.first
 
-        while current.val != key:
-            if current.next is None:
-                return None
-            else:
-                previous = current
-                current = current.next
+        while current and current.key != key:
+            current = current.next
 
-        if current == self.first:
-            self.first = self.first.next
+        if current is None:
+            return None
+
+        if current == self.first and current == self.last:
+            self.first = None
+            self.last = None
+        elif current == self.first:
+            self.first = current.next
             self.first.previous = None
+        elif current == self.last:
+            self.last = current.previous
+            self.last.next = None
         else:
-            previous.next = current.next
-            current.next.previous = previous
+            current.previous.next = current.next
+            current.next.previous = current.previous
 
+        current.next = None
+        current.previous = None
         return current
 
     def display(self):

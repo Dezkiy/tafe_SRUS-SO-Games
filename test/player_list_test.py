@@ -89,5 +89,32 @@ class TestPlayerList(unittest.TestCase):
         self.assertIsNone(removed.previous)
         self.assertIsNone(removed.next)
 
+    def test_delete_by_key(self):
+        self.assertIsNone(self.player_list.delete("uid_1"))
+
+        self.player_list.insert_last(self.node1)
+        self.player_list.insert_last(self.node2)
+        self.player_list.insert_last(self.node3)
+
+        removed = self.player_list.delete("uid_404")
+        self.assertIsNone(removed)
+        self.assertIs(self.player_list.first, self.node1)
+        self.assertIs(self.player_list.last, self.node3)
+
+        removed = self.player_list.delete("uid_1")
+        self.assertIs(removed, self.node1)
+        self.assertIs(self.player_list.first, self.node2)
+        self.assertIsNone(self.node2.previous)
+
+        removed = self.player_list.delete("uid_3")
+        self.assertIs(removed, self.node3)
+        self.assertIs(self.player_list.last, self.node2)
+        self.assertIsNone(self.node2.next)
+
+        removed = self.player_list.delete("uid_2")
+        self.assertIs(removed, self.node2)
+        self.assertIsNone(self.player_list.first)
+        self.assertIsNone(self.player_list.last)
+
 if __name__ == "__main__":
     unittest.main()
