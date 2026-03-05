@@ -143,16 +143,28 @@ class PlayerList:
         current.previous = None
         return current
 
-    def display(self):
-        result = ["List first --> last:"]
+    def display(self, forward=True):
+        """
+        Build a human-readable representation of the list.
 
-        current = self.first
+        Args:
+            forward (bool): When True, traverse head to tail. When False,
+                traverse tail to head.
+
+        Returns:
+            str: Multi-line representation of the linked list.
+        """
+        if forward:
+            result = ["List first --> last:"]
+            current = self.first
+        else:
+            result = ["List last --> first:"]
+            current = self.last
+
         while current:
-            result.append(
-                        f"#<#_prev: {current.previous}, "
-                        f"#-#_node: {current}, "
-                        f"#>#_next: {current.next}"
-                    )
-            current = current.next
+            prev_key = current.previous.key if current.previous else None
+            next_key = current.next.key if current.next else None
+            result.append(f"prev={prev_key} | node={current.key} | next={next_key}")
+            current = current.next if forward else current.previous
 
         return "\n".join(result)

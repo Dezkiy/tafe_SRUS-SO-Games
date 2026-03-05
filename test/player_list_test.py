@@ -22,6 +22,19 @@ class TestPlayerList(unittest.TestCase):
         assert "List first --> last:" in output
         assert "uid_1" in output
 
+    def test_display_reverse_order(self):
+        self.player_list.insert_last(self.node1)
+        self.player_list.insert_last(self.node2)
+        self.player_list.insert_last(self.node3)
+
+        output = self.player_list.display(forward=False)
+        lines = output.splitlines()
+
+        self.assertEqual(lines[0], "List last --> first:")
+        self.assertIn("node=uid_3", lines[1])
+        self.assertIn("node=uid_2", lines[2])
+        self.assertIn("node=uid_1", lines[3])
+
     def test_instance_updated_when_new_items_inserted(self):
         self.assertIsNone(self.player_list.last)
 
