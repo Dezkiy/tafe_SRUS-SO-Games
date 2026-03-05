@@ -7,6 +7,8 @@ class TestPlayerList(unittest.TestCase):
     
     def setUp(self):
         self.player_list = PlayerList()
+        self.node1 = PlayerNode(Player("uid_1", "Bob1"))
+        self.node2 = PlayerNode(Player("uid_2", "Bob2"))
 
     def test_is_player_list_empty(self):
         self.assertEqual(self.player_list.is_empty(), True)
@@ -20,18 +22,29 @@ class TestPlayerList(unittest.TestCase):
         assert "uid_1" in output
 
     def test_instance_updated_when_new_items_inserted(self):
-        node1 = PlayerNode(Player("uid_1", "Bob1"))
-        node2 = PlayerNode(Player("uid_2", "Bob2"))
-
         self.assertIsNone(self.player_list.last)
 
-        self.player_list.insert_first(node1)
-        self.assertIs(self.player_list.first, node1)
-        self.assertIs(self.player_list.last, node1)
+        self.player_list.insert_first( self.node1)
+        self.assertIs(self.player_list.first,  self.node1)
+        self.assertIs(self.player_list.last,  self.node1)
 
-        self.player_list.insert_first(node2)
-        self.assertIs(self.player_list.first, node2)
-        self.assertIs(self.player_list.last, node1)
+        self.player_list.insert_first( self.node2)
+        self.assertIs(self.player_list.first, self.node2)
+        self.assertIs(self.player_list.last, self.node1)
+
+    def test_insert_last(self):
+        self.player_list.insert_last( self.node1)
+        self.assertIs(self.player_list.first,  self.node1)
+        self.assertIs(self.player_list.last,  self.node1)
+        self.assertIsNone(self.node1.previous)
+        self.assertIsNone(self.node1.next)
+
+        self.player_list.insert_last(self.node2)
+        self.assertIs(self.player_list.first, self.node1)
+        self.assertIs(self.player_list.last, self.node2)
+        self.assertIs(self.node1.next, self.node2)
+        self.assertIs(self.node2.previous, self.node1)
+        self.assertIsNone(self.node2.next)
 
 if __name__ == "__main__":
     unittest.main()

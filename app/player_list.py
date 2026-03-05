@@ -22,7 +22,6 @@ class PlayerList:
         return current
         
     def insert_first(self, val):
-        # new_node = PlayerNode(val)
         new_node = (val)
 
         if self.is_empty():
@@ -35,6 +34,21 @@ class PlayerList:
         self.first = new_node
 
     def insert_last(self, val):
+        """
+        Insert a new item at the end of the player list.
+
+        If the list is empty, the new node becomes both the first
+        and last element in the list.
+
+        Otherwise, the node is linked to the current last node,
+        and the list's last reference is updated.
+
+        Args:
+            val (PlayerNode): The node to insert at the end of the list.
+
+        Returns:
+            None
+        """
         new_node = (val)
 
         if self.is_empty():
