@@ -60,6 +60,52 @@ class PlayerList:
         self.last.next = new_node
         self.last = new_node
 
+    def delete_first(self):
+        """
+        Delete and return the first node in the list.
+
+        Returns:
+            PlayerNode | None: The removed node, or None when the list is empty.
+        """
+        if self.is_empty():
+            return None
+
+        removed = self.first
+
+        if self.first == self.last:
+            self.first = None
+            self.last = None
+        else:
+            self.first = removed.next
+            self.first.previous = None
+
+        removed.next = None
+        removed.previous = None
+        return removed
+
+    def delete_last(self):
+        """
+        Delete and return the last node in the list.
+
+        Returns:
+            PlayerNode | None: The removed node, or None when the list is empty.
+        """
+        if self.is_empty():
+            return None
+
+        removed = self.last
+
+        if self.first == self.last:
+            self.first = None
+            self.last = None
+        else:
+            self.last = removed.previous
+            self.last.next = None
+
+        removed.next = None
+        removed.previous = None
+        return removed
+
     def delete(self, key):
         current = self.first
         previous = self.first
