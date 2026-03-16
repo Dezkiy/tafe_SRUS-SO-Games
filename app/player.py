@@ -19,6 +19,16 @@ class Player:
             self._score == player._score
         )
     
+    @classmethod
+    def hash(cls, key):
+        value = 0
+        for char in key:
+            value = value * 31 + ord(char)
+        return value
+
+    def __hash__(self):
+        return Player.hash(self.uid)
+
     @property
     def uid(self):
         return self._uid

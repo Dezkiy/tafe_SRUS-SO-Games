@@ -11,7 +11,7 @@ class PlayerHashMap:
         self._count = 0
 
     def get_index(self, key):
-        return hash(key) % self.SIZE
+        return Player.hash(key) % self.SIZE
 
     def __getitem__(self, key):
         index = self.get_index(key)
