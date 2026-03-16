@@ -50,3 +50,20 @@ class PlayerHashMap:
 
     def __len__(self):
         return self._count
+
+    def display(self):
+        lines = []
+        for index, bucket in enumerate(self._buckets):
+            if bucket.is_empty():
+                continue
+            players = []
+            current = bucket.first
+            while current:
+                players.append(str(current.player))
+                current = current.next
+            lines.append(f"index {index}: " + ", ".join(players))
+
+        output = "\n".join(lines)
+        if output:
+            print(output)
+        return output
