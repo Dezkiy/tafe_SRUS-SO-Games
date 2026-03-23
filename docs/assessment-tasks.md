@@ -97,7 +97,15 @@ def test_sort_players(self):
 What was the outcome of running the above unit test, copy paste the output **for just this particular test** below:
 
 ```text
-Copy the traceback you got when you ran the test here.
+======================================================================
+ERROR: test_sort_players (test.player_test.TestPlayer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/ubuntu/repos/tafe_SRUS-SO-Games/./test/player_test.py", line 29, in test_sort_players
+    sorted_players = sorted(players)
+TypeError: '<' not supported between instances of 'Player' and 'Player'
+
+----------------------------------------------------------------------
 ```
 
 ### 4.3. Success criteria
@@ -114,8 +122,7 @@ What is the **only** magic method that must be implemented in the player class f
 
 **Hint:** if you don't recall this from class, the error message you got when you ran the test will help you.
 -------
-> Answer Here
-> Yes, here - instead of this text!
+__lt__
 -------
 #### 4.3.2. Task: Implement the magic method in the Player class
 
@@ -136,7 +143,17 @@ def test_players_can_be_compared_by_score(self):
 Run the test and confirm that your error resembles the previous error
 
 ```text
-INSERT ERROR OUTPUT HERE
+======================================================================
+ERROR: test_players_can_be_compared_by_score (test.player_test.TestPlayer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/ubuntu/repos/tafe_SRUS-SO-Games/./test/player_test.py", line 43, in test_players_can_be_compared_by_score
+    self.assertLess(bob, alice)
+  File "/usr/lib/python3.10/unittest/case.py", line 1230, in assertLess
+    if not a < b:
+TypeError: '<' not supported between instances of 'Player' and 'Player'
+
+----------------------------------------------------------------------
 ```
 
 - Implement the appropriate magic method in the Player class and ensure you pass this test
@@ -157,14 +174,29 @@ INSERT ERROR OUTPUT HERE
 Rerun `test_sort_players` does the test pass? If not, include the output below:
 
 ```text
-Your output here
+======================================================================
+FAIL: test_sort_players (test.player_test.TestPlayer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/ubuntu/repos/tafe_SRUS-SO-Games/./test/player_test.py", line 34, in test_sort_players
+    self.assertListEqual(sorted_players, manually_sorted_players)
+AssertionError: Lists differ: [Play[57 chars]id='01', score=10), Player(name='Charlie', uid='03', score=15)] != [Play[57 chars]id='01', score=10), Player(name='Charlie', uid='03', score=15)]
+
+First differing element 0:
+Player(name='Bob', uid='02', score=5)
+Player(name='Bob', uid='02', score=5)
+
+  [Player(name='Bob', uid='02', score=5),
+   Player(name='Alice', uid='01', score=10),
+   Player(name='Charlie', uid='03', score=15)]
+
+----------------------------------------------------------------------
 ```
 
 ##### 4.3.4.1 Question: why did the equality comparison fail?
 Why did the test fail (note: if it doesn't fail, it means there is something you have already done before you were asked to do so - if that's the case, you need to figure out what that is!)?
 -------
-> Answer here
->
+Because the test tries to compare two lists of players and the players are different objects in memory, so there are not equal even though they have the same attributes. To fix this, we need to implement the __eq__ method in the Player class to compare the attributes of the player instead of their memory addresses.
 -------
 Add the necessary code to the Player class to ensure that the `test_sort_players` test passes.
 

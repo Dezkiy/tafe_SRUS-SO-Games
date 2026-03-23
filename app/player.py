@@ -7,6 +7,16 @@ class Player:
     def __repr__(self):
         return f"Player(name='{self._name}', uid='{self._uid}', score={self._score})"
 
+    def __lt__(self, item):
+        return self._score < item._score
+
+    def __eq__(self, player):
+        return (
+            self._uid == player._uid and
+            self._name == player._name and
+            self._score == player._score
+        )
+    
     @property
     def uid(self):
         return self._uid
