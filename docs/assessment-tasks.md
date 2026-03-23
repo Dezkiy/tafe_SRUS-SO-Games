@@ -296,9 +296,11 @@ Using the code above as a starting point, create a test case to test your custom
 Include your test case below:
 
 ```python
-
-# YOUR TEST CASE HERE
-
+def test_sort_quickly_desc_with_many_players(self):
+    players = [Player(name=f"Player{i}", uid=f"{i:03}", score=random.randint(0, 1000)) for i in range(1000)]
+    sorted_players = Player.sort_quickly_desc(players)
+    manually_sorted_players = sorted(players, reverse=True)
+    self.assertListEqual(sorted_players, manually_sorted_players)
 ```
 
 #### 5.3.2. Success criteria

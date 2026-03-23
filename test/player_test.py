@@ -1,4 +1,4 @@
-import unittest
+import unittest, random
 from app.player import Player
 
 class TestPlayer(unittest.TestCase):
@@ -59,6 +59,12 @@ class TestPlayer(unittest.TestCase):
             Player(name="Bob", uid='02', score=5),
         ]
 
+        self.assertListEqual(sorted_players, manually_sorted_players)
+
+    def test_sort_quickly_desc_with_many_players(self):
+        players = [Player(name=f"Player{i}", uid=f"{i:03}", score=random.randint(0, 1000)) for i in range(1000)]
+        sorted_players = Player.sort_quickly_desc(players)
+        manually_sorted_players = sorted(players, reverse=True)
         self.assertListEqual(sorted_players, manually_sorted_players)
 
 if __name__ == "__main__":
