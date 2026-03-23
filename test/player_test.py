@@ -42,5 +42,24 @@ class TestPlayer(unittest.TestCase):
         # Add the appropriate expression to the following assert test
         self.assertLess(bob, alice)
 
+    def test_sort_quickly_desc(self):
+        players = [
+            Player(name="Alice", uid='01', score=10),
+            Player(name="Bob", uid='02', score=5),
+            Player(name="Charlie", uid='03', score=15),
+            Player(name="Diana", uid='04', score=10),
+        ]
+
+        sorted_players = Player.sort_quickly_desc(players)
+
+        manually_sorted_players = [
+            Player(name="Charlie", uid='03', score=15),
+            Player(name="Alice", uid='01', score=10),
+            Player(name="Diana", uid='04', score=10),
+            Player(name="Bob", uid='02', score=5),
+        ]
+
+        self.assertListEqual(sorted_players, manually_sorted_players)
+
 if __name__ == "__main__":
     unittest.main()

@@ -238,7 +238,7 @@ def sort_quickly(arr):
 
 What is the expected time and space complexity of the above algorithm? You can answer using big O or in plain English but in both cases you MUST justify your answer.
 
-> Answer here
+> The algorithm compares each element with the pivot at every recursion. It creates new lists for each split, so it uses extra memory. Because it keeps splitting and combining recursively, the total number of operations grows roughly like O(n log n), and the memory usage grows as new lists are created at each level of recursion.
 
 ### 5.2. Task: Implement the custom sorting algorithm
 
@@ -253,7 +253,20 @@ Add a separate test case to `test_player.py` to test your custom sorting algorit
 Include your code below:
 
 ```python
-# YOUR CUSTOM Sorting here
+@classmethod
+def sort_quickly_desc(cls, players):
+    players = list(players)
+    if len(players) <= 1:
+        return players
+    pivot = players[0]
+    left = []
+    right = []
+    for player in players[1:]:
+        if player.score > pivot.score:
+            left.append(player)
+        else:
+            right.append(player)
+    return cls.sort_quickly_desc(left) + [pivot] + cls.sort_quickly_desc(right)
 ```
 
 #### 5.2.3. Success criteria
