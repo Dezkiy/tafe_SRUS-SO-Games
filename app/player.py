@@ -1,3 +1,5 @@
+import random
+
 class Player:
     def __init__(self, uid, name, score=0):
         self._uid = uid
@@ -48,12 +50,18 @@ class Player:
         players = list(players)
         if len(players) <= 1:
             return players
-        pivot = players[0]
+
+        pivot_index = random.randrange(len(players))
+        pivot = players[pivot_index]
+
         left = []
         right = []
-        for player in players[1:]:
+        for i, player in enumerate(players):
+            if i == pivot_index:
+                continue
             if player.score > pivot.score:
                 left.append(player)
             else:
                 right.append(player)
+
         return cls.sort_quickly_desc(left) + [pivot] + cls.sort_quickly_desc(right)

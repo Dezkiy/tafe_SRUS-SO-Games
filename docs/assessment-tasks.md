@@ -321,7 +321,24 @@ Create a test case that tries to sort 1000 players that are already sorted.
 If you get a failure, include the failure below:
 
 ```text
-YOUR FAILURE HERE
+======================================================================
+ERROR: test_sort_quickly_desc_with_sorted_players (test.player_test.TestPlayer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/ubuntu/repos/tafe_SRUS-SO-Games/./test/player_test.py", line 72, in test_sort_quickly_desc_with_sorted_players
+    sorted_players = Player.sort_quickly_desc(players)
+  File "/home/ubuntu/repos/tafe_SRUS-SO-Games/./app/player.py", line 59, in sort_quickly_desc
+    return cls.sort_quickly_desc(left) + [pivot] + cls.sort_quickly_desc(right)
+  File "/home/ubuntu/repos/tafe_SRUS-SO-Games/./app/player.py", line 59, in sort_quickly_desc
+    return cls.sort_quickly_desc(left) + [pivot] + cls.sort_quickly_desc(right)
+  File "/home/ubuntu/repos/tafe_SRUS-SO-Games/./app/player.py", line 59, in sort_quickly_desc
+    return cls.sort_quickly_desc(left) + [pivot] + cls.sort_quickly_desc(right)
+  [Previous line repeated 979 more times]
+  File "/home/ubuntu/repos/tafe_SRUS-SO-Games/./app/player.py", line 49, in sort_quickly_desc
+    if len(players) <= 1:
+RecursionError: maximum recursion depth exceeded while calling a Python object
+
+----------------------------------------------------------------------
 ```
 
 ##### 5.3.4.1 Question: Why does the algorithm fail on presorted values?
@@ -330,13 +347,32 @@ Provide a reason why this test failed (if you got a recursion errors, you need t
 
 If your implementation did not fail, you must nevertheless explain why the senior developers algorithm has worse space complexity for presorted values.
 
-> Answer here
+> It’s because the sort_quickly_desc behaves like a naive quicksort that picks a fixed pivot (first element). On an already sorted list, that pivot produces extremely unbalanced partitions: one side has n-1 items and the other has 0. That degenerates into recursion depth of ~n (1000 deep), which  exceeds Python’s recursion limit 
 
 Propose a fix to your sorting algorithm that fixes this issue.
 
 ```python
-# YOUR FIX HERE
-# Highlight what the fix was
+@classmethod
+def sort_quickly_desc(cls, players):
+    players = list(players)
+    if len(players) <= 1:
+        return players
+
+    # Use a random pivot instead of always using the first element
+    pivot_index = random.randrange(len(players))
+    pivot = players[pivot_index]
+
+    left = []
+    right = []
+    for i, player in enumerate(players):
+        if i == pivot_index:
+            continue
+        if player.score > pivot.score:
+            left.append(player)
+        else:
+            right.append(player)
+
+    return cls.sort_quickly_desc(left) + [pivot] + cls.sort_quickly_desc(right)
 ```
 
 #### 5.3.5. Success criteria
@@ -352,16 +388,7 @@ Propose a fix to your sorting algorithm that fixes this issue.
 Complete the following snippet before you submit:
 
 ```text
-I, <name and student number>, completed this work in class <room number>, on <date>, under the supervision of <assessor's name>.
-```
-
-Or (if not completed in class):
-
-```text
-I, <name and student number>, completed this work outside of the scheduled hours. I emailed <assessors name>, on <date>, along with my documented reason for non-attendance, and have scheduled a time to meet to discuss my work.
-
-I understand that until I meet my assessor to confirm that this work is a valid and true representation of my abilities to write and debug a sorting algorithm in Python, this submission cannot be considered complete.
-
+I, Sam Orlov 20116064, completed this work in class 303, on 23/3/2026, under the supervision of Adrian Gould.
 ```
 
 ## 7. Submit your work
