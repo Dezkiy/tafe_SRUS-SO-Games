@@ -16,5 +16,9 @@ class TestPlayer(unittest.TestCase):
     def test_repr_includes_custom_score(self):
         self.assertEqual(str(self.player_two), "Player(name='Timofei', uid='2', score=2)")
 
+    def test_negative_score_raises_value_error(self):
+        with self.assertRaises(ValueError):
+            self.player_one.score = -1
+
 if __name__ == "__main__":
     unittest.main()

@@ -29,4 +29,6 @@ class Player:
     
     @score.setter
     def score(self, value):
+        if value < 0:
+            raise ValueError("Score cannot be negative.")
         self._score = value
