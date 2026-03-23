@@ -1,10 +1,11 @@
 class Player:
-    def __init__(self, uid, name):
+    def __init__(self, uid, name, score=0):
         self._uid = uid
         self._name = name
+        self._score = score
 
-    def __str__(self):
-        return f"Player {self._uid}: {self._name}"
+    def __repr__(self):
+        return f"Player(name='{self._name}', uid='{self._uid}', score={self._score})"
 
     @property
     def uid(self):
@@ -21,3 +22,11 @@ class Player:
     @name.setter
     def name(self, value):     
         self._name = value
+
+    @property
+    def score(self):
+        return self._score
+    
+    @score.setter
+    def score(self, value):
+        self._score = value
