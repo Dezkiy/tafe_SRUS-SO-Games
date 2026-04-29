@@ -30,3 +30,15 @@ class PlayerBST:
             current_node.player = player
 
         return current_node
+
+    def search(self, name):
+        return self._search(self.root, name)
+
+    def _search(self, current_node, name):
+        if current_node is None or current_node.player.name == name:
+            return current_node
+
+        if name < current_node.player.name:
+            return self._search(current_node.left, name)
+
+        return self._search(current_node.right, name)
