@@ -11,3 +11,8 @@ To find an items in BST, we start at the root and compare the target value with 
 # Step 3 – Knowledge Question (20-60 words)
 **In your own words, describe what a balanced BST is.**
 A balanced tree is a BST where left and right sides have similar height, so operations like search and insert stay fast.
+
+# Step 8 - Knowledge Question 
+**With the newly balanced BST, how many steps does it take at most to find an existing item in the
+search tree?**
+At most, it takes about log2(n) steps to find an existing item in a balanced BST, because each step removes about half of the remaining tree.
