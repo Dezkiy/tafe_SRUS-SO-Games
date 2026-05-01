@@ -80,6 +80,45 @@ class TestPlayerBST(unittest.TestCase):
 
         self.assertIsNone(found_node)
 
+    def test_to_sorted_list_returns_players_in_name_order(self):
+        self.player_bst.insert(Player("uid_1", "Sam"))
+        self.player_bst.insert(Player("uid_2", "Bob"))
+        self.player_bst.insert(Player("uid_3", "Tim"))
+        self.player_bst.insert(Player("uid_4", "Alex"))
+
+        players = self.player_bst.to_sorted_list()
+        names = [player.name for player in players]
+
+        self.assertEqual(names, ["Alex", "Bob", "Sam", "Tim"])
+
+    def test_balance_uses_middle_element_as_root(self):
+        self.player_bst.insert(Player("uid_1", "Alex"))
+        self.player_bst.insert(Player("uid_2", "Bob"))
+        self.player_bst.insert(Player("uid_3", "Cara"))
+        self.player_bst.insert(Player("uid_4", "Dana"))
+        self.player_bst.insert(Player("uid_5", "Ella"))
+
+        self.player_bst.balance()
+
+        self.assertIsNotNone(self.player_bst.root)
+        self.assertEqual(self.player_bst.root.player.name, "Cara")
+
+    def test_balance_builds_left_and_right_children_recursively(self):
+        self.player_bst.insert(Player("uid_1", "Alex"))
+        self.player_bst.insert(Player("uid_2", "Bob"))
+        self.player_bst.insert(Player("uid_3", "Cara"))
+        self.player_bst.insert(Player("uid_4", "Dana"))
+        self.player_bst.insert(Player("uid_5", "Ella")) 
+        self.player_bst.insert(Player("uid_6", "Finn"))
+        self.player_bst.insert(Player("uid_7", "Gaill"))
+
+        self.player_bst.balance()
+
+        self.assertEqual(self.player_bst.root.player.name, "Dana")
+        self.assertEqual(self.player_bst.root.left.player.name, "Bob")
+        self.assertEqual(self.player_bst.root.right.player.name, "Finn") 
+        self.assertEqual(self.player_bst.root.right.right.player.name, "Gaill")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -42,3 +42,30 @@ class PlayerBST:
             return self._search(current_node.left, name)
 
         return self._search(current_node.right, name)
+
+    def to_sorted_list(self):
+        players = []
+        self._to_sorted_list(self.root, players)
+        return players
+
+    def _to_sorted_list(self, current_node, players):
+        if current_node is None:
+            return
+
+        self._to_sorted_list(current_node.left, players)
+        players.append(current_node.player)
+        self._to_sorted_list(current_node.right, players)
+
+    def balance(self):
+        players = self.to_sorted_list()
+        self.root = self._build_balanced_tree(players, 0, len(players) - 1)
+
+    def _build_balanced_tree(self, players, start, end):
+        if start > end:
+            return None
+
+        middle = (start + end) // 2
+        current_node = PlayerBNode(players[middle])
+        current_node.left = self._build_balanced_tree(players, start, middle - 1)
+        current_node.right = self._build_balanced_tree(players, middle + 1, end)
+        return current_node
