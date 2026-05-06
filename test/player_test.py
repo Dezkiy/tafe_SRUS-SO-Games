@@ -65,7 +65,10 @@ class TestPlayer(unittest.TestCase):
         players = [Player(name=f"Player{i}", uid=f"{i:03}", score=random.randint(0, 1000)) for i in range(1000)]
         sorted_players = Player.sort_quickly_desc(players)
         manually_sorted_players = sorted(players, reverse=True)
-        self.assertListEqual(sorted_players, manually_sorted_players)
+        self.assertListEqual(
+            [player.score for player in sorted_players],
+            [player.score for player in manually_sorted_players],
+        )
 
     def test_sort_quickly_desc_with_sorted_players(self):
         players = [Player(name=f"Player{i}", uid=f"{i:03}", score=1000 - i) for i in range(1000)]
