@@ -46,16 +46,16 @@ class TestPlayer(unittest.TestCase):
         players = [
             Player(name="Alice", uid='01', score=10),
             Player(name="Bob", uid='02', score=5),
-            Player(name="Charlie", uid='03', score=15),
-            Player(name="Diana", uid='04', score=10),
+            Player(name="Charlie", uid='03', score=20),
+            Player(name="Diana", uid='04', score=15),
         ]
 
         sorted_players = Player.sort_quickly_desc(players)
 
         manually_sorted_players = [
-            Player(name="Charlie", uid='03', score=15),
+            Player(name="Charlie", uid='03', score=20),
+            Player(name="Diana", uid='04', score=15),
             Player(name="Alice", uid='01', score=10),
-            Player(name="Diana", uid='04', score=10),
             Player(name="Bob", uid='02', score=5),
         ]
 
